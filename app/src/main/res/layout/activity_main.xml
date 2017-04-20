@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.southernbox.ripplelayout.widget.RippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-    <ImageView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher_round" />
+        android:layout_height="match_parent">
 
-</com.southernbox.ripplelayout.widget.RippleLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView style="@style/CardView.Item">
+
+                <com.southernbox.ripplelayout.widget.RippleLayout
+                    style="@style/ImageView.Item">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/ImageView.Item"
+                    android:src="@drawable/eddard_stark" />
+
+                </com.southernbox.ripplelayout.widget.RippleLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView style="@style/CardView.Item">
+
+                <com.southernbox.ripplelayout.widget.RippleLayout
+                    style="@style/ImageView.Item">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/ImageView.Item"
+                    android:src="@drawable/robb_stark" />
+
+                </com.southernbox.ripplelayout.widget.RippleLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

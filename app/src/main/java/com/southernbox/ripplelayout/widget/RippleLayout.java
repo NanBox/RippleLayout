@@ -43,6 +43,8 @@ public class RippleLayout extends FrameLayout {
     private float radius;
     //水波动画是否执行中
     private boolean isRipple = false;
+    //水波扩散速度
+    private float rippleSpeed = 15f;
 
     public RippleLayout(@NonNull Context context) {
         super(context);
@@ -85,20 +87,25 @@ public class RippleLayout extends FrameLayout {
         if (!isRipple) {
             isRipple = true;
             initData();
-            Observable.interval(0, 10, TimeUnit.MILLISECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .take(150 + 1)
-                    .subscribe(new Consumer<Long>() {
-                        @Override
-                        public void accept(@NonNull Long aLong) throws Exception {
-                            radius = aLong * 15F;
-                            warp(x, y);
-                            if (aLong == 150) {
-                                isRipple = false;
+            if (bitmap != null) {
+                //循环次数，通过控件对角线距离计算，确保水波纹完全消失
+                int viewLength = (int) getLength(bitmap.getWidth(), bitmap.getHeight());
+                final int count = (int) ((viewLength + rippleWidth) / rippleSpeed) + 1;
+                Observable.interval(0, 10, TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .take(count + 1)
+                        .subscribe(new Consumer<Long>() {
+                            @Override
+                            public void accept(@NonNull Long aLong) throws Exception {
+                                radius = aLong * rippleSpeed;
+                                warp(x, y);
+                                if (aLong == count) {
+                                    isRipple = false;
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         }
     }
 
@@ -129,11 +136,11 @@ public class RippleLayout extends FrameLayout {
      */
     private void warp(float x, float y) {
         for (int i = 0; i < COUNT * 2; i += 2) {
-            float x1 = staticVerts[i];
-            float y1 = staticVerts[i + 1];
-            float length = getLength(x, y, x1, y1);
+            float staticX = staticVerts[i];
+            float staticY = staticVerts[i + 1];
+            float length = getLength(staticX - x, staticY - y);
             if (length > radius - rippleWidth && length < radius + rippleWidth) {
-                PointF point = getTroughsCoordinate(x, y, x1, y1);
+                PointF point = getTroughsCoordinate(x, y, staticX, staticY);
                 targetVerts[i] = point.x;
                 targetVerts[i + 1] = point.y;
             } else {
@@ -149,8 +156,7 @@ public class RippleLayout extends FrameLayout {
      * 计算波谷偏移量率
      */
     private float getTroughsOffset(float length) {
-        float dr = length - radius;
-        float rate = dr / rippleWidth;
+        float rate = (length - radius) / rippleWidth;
         return (float) Math.cos(rate) * 10f;
     }
 
@@ -164,7 +170,7 @@ public class RippleLayout extends FrameLayout {
      * @return 偏移坐标
      */
     private PointF getTroughsCoordinate(float x0, float y0, float x1, float y1) {
-        float length = getLength(x0, y0, x1, y1);
+        float length = getLength(x1 - x0, y1 - y0);
         //偏移点与原点间的角度
         float angle = (float) Math.atan(Math.abs((y1 - y0) / (x1 - x0)));
         //偏移距离
@@ -203,18 +209,14 @@ public class RippleLayout extends FrameLayout {
     }
 
     /**
-     * 获取两点间的距离
+     * 根据宽高，获取对角线距离
      *
-     * @param x0 第一点的 x 坐标
-     * @param y0 第一点的 y 坐标
-     * @param x1 第二点的 x 坐标
-     * @param y1 第二点的 y 坐标
+     * @param width  宽
+     * @param height 高
      * @return 距离
      */
-    private float getLength(float x0, float y0, float x1, float y1) {
-        float dx = x0 - x1;
-        float dy = y0 - y1;
-        return (float) Math.sqrt(dx * dx + dy * dy);
+    private float getLength(float width, float height) {
+        return (float) Math.sqrt(width * width + height * height);
     }
 
     /**

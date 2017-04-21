@@ -113,7 +113,7 @@ public class RippleLayout extends FrameLayout {
      * 初始化 Bitmap 及对应数组
      */
     private void initData() {
-        bitmap = getCacheBitmapFromView(RippleLayout.this);
+        bitmap = getCacheBitmapFromView(this);
         float bitmapWidth = bitmap.getWidth();
         float bitmapHeight = bitmap.getHeight();
         int index = 0;

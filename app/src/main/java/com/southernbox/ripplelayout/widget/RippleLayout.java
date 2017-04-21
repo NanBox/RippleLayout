@@ -140,7 +140,7 @@ public class RippleLayout extends FrameLayout {
             float staticY = staticVerts[i + 1];
             float length = getLength(staticX - x, staticY - y);
             if (length > rippleRadius - rippleWidth && length < rippleRadius + rippleWidth) {
-                PointF point = getTroughsCoordinate(x, y, staticX, staticY);
+                PointF point = getRipplePoint(x, y, staticX, staticY);
                 targetVerts[i] = point.x;
                 targetVerts[i + 1] = point.y;
             } else {
@@ -153,14 +153,6 @@ public class RippleLayout extends FrameLayout {
     }
 
     /**
-     * 计算波谷偏移量率
-     */
-    private float getTroughsOffset(float length) {
-        float rate = (length - rippleRadius) / rippleWidth;
-        return (float) Math.cos(rate) * 10f;
-    }
-
-    /**
      * 获取水波的偏移坐标
      *
      * @param x0 原点 x 坐标
@@ -169,12 +161,12 @@ public class RippleLayout extends FrameLayout {
      * @param y1 需要偏移的点的 y 坐标
      * @return 偏移坐标
      */
-    private PointF getTroughsCoordinate(float x0, float y0, float x1, float y1) {
+    private PointF getRipplePoint(float x0, float y0, float x1, float y1) {
         float length = getLength(x1 - x0, y1 - y0);
         //偏移点与原点间的角度
         float angle = (float) Math.atan(Math.abs((y1 - y0) / (x1 - x0)));
         //偏移距离
-        float offset = getTroughsOffset(length);
+        float offset = getRippleOffset(length);
         float offsetX = offset * (float) Math.cos(angle);
         float offsetY = offset * (float) Math.sin(angle);
         //计算偏移后的坐标
@@ -206,6 +198,14 @@ public class RippleLayout extends FrameLayout {
             }
         }
         return new PointF(x, y);
+    }
+
+    /**
+     * 计算水波偏移量
+     */
+    private float getRippleOffset(float length) {
+        float rate = (length - rippleRadius) / rippleWidth;
+        return (float) Math.cos(rate) * 10f;
     }
 
     /**

@@ -42,9 +42,9 @@ public class RippleLayout extends FrameLayout {
     //水波扩散速度
     private float rippleSpeed = 15f;
     //水波半径
-    private float radius;
+    private float rippleRadius;
     //水波动画是否执行中
-    private boolean isRipple ;
+    private boolean isRippling;
 
     public RippleLayout(@NonNull Context context) {
         super(context);
@@ -60,7 +60,7 @@ public class RippleLayout extends FrameLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        if (isRipple && bitmap != null) {
+        if (isRippling && bitmap != null) {
             canvas.drawBitmapMesh(bitmap, MESH_WIDTH, MESH_HEIGHT, targetVerts, 0, null, 0, null);
         } else {
             super.dispatchDraw(canvas);
@@ -84,8 +84,8 @@ public class RippleLayout extends FrameLayout {
      * @param y 原点 y 坐标
      */
     public void showRipple(final float x, final float y) {
-        if (!isRipple) {
-            isRipple = true;
+        if (!isRippling) {
+            isRippling = true;
             initData();
             if (bitmap != null) {
                 //循环次数，通过控件对角线距离计算，确保水波纹完全消失
@@ -98,10 +98,10 @@ public class RippleLayout extends FrameLayout {
                         .subscribe(new Consumer<Long>() {
                             @Override
                             public void accept(@NonNull Long aLong) throws Exception {
-                                radius = aLong * rippleSpeed;
+                                rippleRadius = aLong * rippleSpeed;
                                 warp(x, y);
                                 if (aLong == count) {
-                                    isRipple = false;
+                                    isRippling = false;
                                 }
                             }
                         });
@@ -139,7 +139,7 @@ public class RippleLayout extends FrameLayout {
             float staticX = staticVerts[i];
             float staticY = staticVerts[i + 1];
             float length = getLength(staticX - x, staticY - y);
-            if (length > radius - rippleWidth && length < radius + rippleWidth) {
+            if (length > rippleRadius - rippleWidth && length < rippleRadius + rippleWidth) {
                 PointF point = getTroughsCoordinate(x, y, staticX, staticY);
                 targetVerts[i] = point.x;
                 targetVerts[i + 1] = point.y;
@@ -156,7 +156,7 @@ public class RippleLayout extends FrameLayout {
      * 计算波谷偏移量率
      */
     private float getTroughsOffset(float length) {
-        float rate = (length - radius) / rippleWidth;
+        float rate = (length - rippleRadius) / rippleWidth;
         return (float) Math.cos(rate) * 10f;
     }
 
@@ -180,7 +180,7 @@ public class RippleLayout extends FrameLayout {
         //计算偏移后的坐标
         float x;
         float y;
-        if (length < radius + rippleWidth && length > radius) {
+        if (length < rippleRadius + rippleWidth && length > rippleRadius) {
             //波峰外的偏移坐标
             if (x1 > x0) {
                 x = x1 + offsetX;

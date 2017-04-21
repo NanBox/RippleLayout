@@ -20,7 +20,7 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     style="@style/ImageView.Item"
-                    android:src="@drawable/eddard_stark" />
+                    android:src="@drawable/water" />
 
                 </com.southernbox.ripplelayout.widget.RippleLayout>
 
@@ -34,7 +34,7 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     style="@style/ImageView.Item"
-                    android:src="@drawable/robb_stark" />
+                    android:src="@drawable/net" />
 
                 </com.southernbox.ripplelayout.widget.RippleLayout>
 

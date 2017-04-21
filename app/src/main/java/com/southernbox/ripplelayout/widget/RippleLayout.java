@@ -26,25 +26,25 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RippleLayout extends FrameLayout {
 
-    //当前控件的图片
-    private Bitmap bitmap;
     //图片横向、纵向的格数
     private final int MESH_WIDTH = 20;
     private final int MESH_HEIGHT = 20;
     //图片的顶点数
-    private final int COUNT = (MESH_WIDTH + 1) * (MESH_HEIGHT + 1);
+    private final int VERTS_COUNT = (MESH_WIDTH + 1) * (MESH_HEIGHT + 1);
     //原坐标数组
-    private final float[] staticVerts = new float[COUNT * 2];
+    private final float[] staticVerts = new float[VERTS_COUNT * 2];
     //转换后的坐标数组
-    private final float[] targetVerts = new float[COUNT * 2];
+    private final float[] targetVerts = new float[VERTS_COUNT * 2];
+    //当前控件的图片
+    private Bitmap bitmap;
     //水波宽度
     private float rippleWidth = 100f;
+    //水波扩散速度
+    private float rippleSpeed = 15f;
     //水波半径
     private float radius;
     //水波动画是否执行中
-    private boolean isRipple = false;
-    //水波扩散速度
-    private float rippleSpeed = 15f;
+    private boolean isRipple ;
 
     public RippleLayout(@NonNull Context context) {
         super(context);
@@ -90,7 +90,7 @@ public class RippleLayout extends FrameLayout {
             if (bitmap != null) {
                 //循环次数，通过控件对角线距离计算，确保水波纹完全消失
                 int viewLength = (int) getLength(bitmap.getWidth(), bitmap.getHeight());
-                final int count = (int) ((viewLength + rippleWidth) / rippleSpeed) + 1;
+                final int count = (int) ((viewLength + rippleWidth) / rippleSpeed);
                 Observable.interval(0, 10, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -135,7 +135,7 @@ public class RippleLayout extends FrameLayout {
      * @param y 原点 y 坐标
      */
     private void warp(float x, float y) {
-        for (int i = 0; i < COUNT * 2; i += 2) {
+        for (int i = 0; i < VERTS_COUNT * 2; i += 2) {
             float staticX = staticVerts[i];
             float staticY = staticVerts[i + 1];
             float length = getLength(staticX - x, staticY - y);

@@ -117,12 +117,12 @@ public class RippleLayout extends FrameLayout {
         float bitmapWidth = bitmap.getWidth();
         float bitmapHeight = bitmap.getHeight();
         int index = 0;
-        for (int y = 0; y <= MESH_HEIGHT; y++) {
-            float fy = bitmapHeight * y / MESH_HEIGHT;
-            for (int x = 0; x <= MESH_WIDTH; x++) {
-                float fx = bitmapWidth * x / MESH_WIDTH;
-                staticVerts[index * 2] = targetVerts[index * 2] = fx;
-                staticVerts[index * 2 + 1] = targetVerts[index * 2 + 1] = fy;
+        for (int height = 0; height <= MESH_HEIGHT; height++) {
+            float y = bitmapHeight * height / MESH_HEIGHT;
+            for (int width = 0; width <= MESH_WIDTH; width++) {
+                float x = bitmapWidth * width / MESH_WIDTH;
+                staticVerts[index * 2] = targetVerts[index * 2] = x;
+                staticVerts[index * 2 + 1] = targetVerts[index * 2 + 1] = y;
                 index += 1;
             }
         }

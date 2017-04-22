@@ -80,10 +80,10 @@ public class RippleLayout extends FrameLayout {
     /**
      * 显示水波动画
      *
-     * @param x 原点 x 坐标
-     * @param y 原点 y 坐标
+     * @param originX 原点 x 坐标
+     * @param originY 原点 y 坐标
      */
-    public void showRipple(final float x, final float y) {
+    public void showRipple(final float originX, final float originY) {
         if (isRippling) {
             return;
         }
@@ -103,7 +103,7 @@ public class RippleLayout extends FrameLayout {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
                         rippleRadius = aLong * rippleSpeed;
-                        warp(x, y);
+                        warp(originX, originY);
                         if (aLong == count) {
                             isRippling = false;
                         }
@@ -136,16 +136,16 @@ public class RippleLayout extends FrameLayout {
     /**
      * 图片转换
      *
-     * @param x 原点 x 坐标
-     * @param y 原点 y 坐标
+     * @param originX 原点 x 坐标
+     * @param originY 原点 y 坐标
      */
-    private void warp(float x, float y) {
+    private void warp(float originX, float originY) {
         for (int i = 0; i < VERTS_COUNT * 2; i += 2) {
             float staticX = staticVerts[i];
             float staticY = staticVerts[i + 1];
-            float length = getLength(staticX - x, staticY - y);
+            float length = getLength(staticX - originX, staticY - originY);
             if (length > rippleRadius - rippleWidth && length < rippleRadius + rippleWidth) {
-                PointF point = getRipplePoint(x, y, staticX, staticY);
+                PointF point = getRipplePoint(originX, originY, staticX, staticY);
                 targetVerts[i] = point.x;
                 targetVerts[i + 1] = point.y;
             } else {
@@ -160,57 +160,50 @@ public class RippleLayout extends FrameLayout {
     /**
      * 获取水波的偏移坐标
      *
-     * @param x0 原点 x 坐标
-     * @param y0 原点 y 坐标
-     * @param x1 需要偏移的点的 x 坐标
-     * @param y1 需要偏移的点的 y 坐标
-     * @return 偏移坐标
+     * @param originX 原点 x 坐标
+     * @param originY 原点 y 坐标
+     * @param staticX 待偏移顶点的原 x 坐标
+     * @param staticY 待偏移顶点的原 y 坐标
+     * @return 偏移后坐标
      */
-    private PointF getRipplePoint(float x0, float y0, float x1, float y1) {
-        float length = getLength(x1 - x0, y1 - y0);
+    private PointF getRipplePoint(float originX, float originY, float staticX, float staticY) {
+        float length = getLength(staticX - originX, staticY - originY);
         //偏移点与原点间的角度
-        float angle = (float) Math.atan(Math.abs((y1 - y0) / (x1 - x0)));
-        //偏移距离
-        float offset = getRippleOffset(length);
+        float angle = (float) Math.atan(Math.abs((staticY - originY) / (staticX - originX)));
+        //计算偏移距离
+        float rate = (length - rippleRadius) / rippleWidth;
+        float offset = (float) Math.cos(rate) * 10f;
         float offsetX = offset * (float) Math.cos(angle);
         float offsetY = offset * (float) Math.sin(angle);
         //计算偏移后的坐标
-        float x;
-        float y;
+        float targetX;
+        float targetY;
         if (length < rippleRadius + rippleWidth && length > rippleRadius) {
             //波峰外的偏移坐标
-            if (x1 > x0) {
-                x = x1 + offsetX;
+            if (staticX > originY) {
+                targetX = staticX + offsetX;
             } else {
-                x = x1 - offsetX;
+                targetX = staticX - offsetX;
             }
-            if (y1 > y0) {
-                y = y1 + offsetY;
+            if (staticY > originY) {
+                targetY = staticY + offsetY;
             } else {
-                y = y1 - offsetY;
+                targetY = staticY - offsetY;
             }
         } else {
             //波峰内的偏移坐标
-            if (x1 > x0) {
-                x = x1 - offsetX;
+            if (staticX > originY) {
+                targetX = staticX - offsetX;
             } else {
-                x = x1 + offsetX;
+                targetX = staticX + offsetX;
             }
-            if (y1 > y0) {
-                y = y1 - offsetY;
+            if (staticY > originY) {
+                targetY = staticY - offsetY;
             } else {
-                y = y1 + offsetY;
+                targetY = staticY + offsetY;
             }
         }
-        return new PointF(x, y);
-    }
-
-    /**
-     * 计算水波偏移量
-     */
-    private float getRippleOffset(float length) {
-        float rate = (length - rippleRadius) / rippleWidth;
-        return (float) Math.cos(rate) * 10f;
+        return new PointF(targetX, targetY);
     }
 
     /**

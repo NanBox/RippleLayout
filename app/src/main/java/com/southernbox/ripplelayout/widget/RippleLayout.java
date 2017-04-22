@@ -84,29 +84,31 @@ public class RippleLayout extends FrameLayout {
      * @param y 原点 y 坐标
      */
     public void showRipple(final float x, final float y) {
-        if (!isRippling) {
-            isRippling = true;
-            initData();
-            if (bitmap != null) {
-                //循环次数，通过控件对角线距离计算，确保水波纹完全消失
-                int viewLength = (int) getLength(bitmap.getWidth(), bitmap.getHeight());
-                final int count = (int) ((viewLength + rippleWidth) / rippleSpeed);
-                Observable.interval(0, 10, TimeUnit.MILLISECONDS)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .take(count + 1)
-                        .subscribe(new Consumer<Long>() {
-                            @Override
-                            public void accept(@NonNull Long aLong) throws Exception {
-                                rippleRadius = aLong * rippleSpeed;
-                                warp(x, y);
-                                if (aLong == count) {
-                                    isRippling = false;
-                                }
-                            }
-                        });
-            }
+        if (isRippling) {
+            return;
         }
+        initData();
+        if (bitmap == null) {
+            return;
+        }
+        isRippling = true;
+        //循环次数，通过控件对角线距离计算，确保水波纹完全消失
+        int viewLength = (int) getLength(bitmap.getWidth(), bitmap.getHeight());
+        final int count = (int) ((viewLength + rippleWidth) / rippleSpeed);
+        Observable.interval(0, 10, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .take(count + 1)
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(@NonNull Long aLong) throws Exception {
+                        rippleRadius = aLong * rippleSpeed;
+                        warp(x, y);
+                        if (aLong == count) {
+                            isRippling = false;
+                        }
+                    }
+                });
     }
 
     /**
@@ -114,6 +116,9 @@ public class RippleLayout extends FrameLayout {
      */
     private void initData() {
         bitmap = getCacheBitmapFromView(this);
+        if (bitmap == null) {
+            return;
+        }
         float bitmapWidth = bitmap.getWidth();
         float bitmapHeight = bitmap.getHeight();
         int index = 0;

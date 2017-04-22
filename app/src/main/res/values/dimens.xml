@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="menu_margin">-100dp</dimen>
+    <dimen name="menu_padding">100dp</dimen>
+</resources>

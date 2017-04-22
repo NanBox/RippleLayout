@@ -37,7 +37,7 @@ public class RippleLayout extends FrameLayout {
     private final float[] targetVerts = new float[VERTS_COUNT * 2];
     //当前控件的图片
     private Bitmap bitmap;
-    //水波宽度
+    //水波宽度的一半
     private float rippleWidth = 100f;
     //水波扩散速度
     private float rippleSpeed = 15f;

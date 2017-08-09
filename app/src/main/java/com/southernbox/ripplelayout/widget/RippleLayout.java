@@ -180,7 +180,7 @@ public class RippleLayout extends FrameLayout {
         float targetY;
         if (length < rippleRadius + rippleWidth && length > rippleRadius) {
             //波峰外的偏移坐标
-            if (staticX > originY) {
+            if (staticX > originX) {
                 targetX = staticX + offsetX;
             } else {
                 targetX = staticX - offsetX;

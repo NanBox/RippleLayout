@@ -1,12 +1,9 @@
-package com.southernbox.ripplelayout.widget;
+package com.southernbox.ripplelayout;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,15 +43,15 @@ public class RippleLayout extends FrameLayout {
     //水波动画是否执行中
     private boolean isRippling;
 
-    public RippleLayout(@NonNull Context context) {
+    public RippleLayout(Context context) {
         super(context);
     }
 
-    public RippleLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public RippleLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RippleLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+    public RippleLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -101,7 +98,7 @@ public class RippleLayout extends FrameLayout {
                 .take(count + 1)
                 .subscribe(new Consumer<Long>() {
                     @Override
-                    public void accept(@NonNull Long aLong) throws Exception {
+                    public void accept(Long aLong) throws Exception {
                         rippleRadius = aLong * rippleSpeed;
                         warp(originX, originY);
                         if (aLong == count) {

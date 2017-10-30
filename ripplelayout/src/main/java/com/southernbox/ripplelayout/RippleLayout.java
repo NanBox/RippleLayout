@@ -4,17 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by SouthernBox on 2017/4/20 0020.
@@ -92,20 +86,19 @@ public class RippleLayout extends FrameLayout {
         //循环次数，通过控件对角线距离计算，确保水波纹完全消失
         int viewLength = (int) getLength(bitmap.getWidth(), bitmap.getHeight());
         final int count = (int) ((viewLength + rippleWidth) / rippleSpeed);
-        Observable.interval(0, 10, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .take(count + 1)
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        rippleRadius = aLong * rippleSpeed;
-                        warp(originX, originY);
-                        if (aLong == count) {
-                            isRippling = false;
-                        }
-                    }
-                });
+        CountDownTimer cdt = new CountDownTimer(count * 10, 10) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                rippleRadius = (count - millisUntilFinished / 10) * rippleSpeed;
+                warp(originX, originY);
+            }
+
+            @Override
+            public void onFinish() {
+                isRippling = false;
+            }
+        };
+        cdt.start();
     }
 
     /**

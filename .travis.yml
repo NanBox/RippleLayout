@@ -10,4 +10,4 @@ android:
     - android-26
     - build-tools-26.0.2
 
-script: gradle/buildViaTravis.sh
+script: ./gradlew check

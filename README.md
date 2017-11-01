@@ -1,3 +1,5 @@
+[![](https://badge.juejin.im/entry/58fb4cad570c350058d74eab/likes.svg?style=flat)](https://juejin.im/post/58fb4c64ac502e0063a2721e)
+
 在 Android 的画布 Canvas 里面有个 drawBitmapMesh 方法，通过它可以实现对 Bitmap 的各种扭曲。我们试一下用它把图像扭出水波纹的效果。
 
 和 Material Design 里扁平化的水波纹不同，这里是通过对图像的处理，模拟真实的水波纹效果，最后实现的效果如下：

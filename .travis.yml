@@ -10,4 +10,5 @@ android:
     - android-26
     - build-tools-26.0.2
 
-script: ./gradlew check
+script:
+  - ./gradlew assembleRelease

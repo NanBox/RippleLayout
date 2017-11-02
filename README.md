@@ -1,5 +1,9 @@
+[![](https://travis-ci.org/SouthernBox/RippleLayout.svg?branch=master)](https://travis-ci.org/SouthernBox/RippleLayout)
+[![](https://api.bintray.com/packages/southernbox/maven/RippleLayout/images/download.svg)](https://bintray.com/southernbox/maven/RippleLayout/_latestVersion)
+![](https://img.shields.io/badge/platform-android-green.svg)
+[![](https://img.shields.io/badge/API-15+-green.svg?style=flat)](https://android-arsenal.com/api?level=15)
+![](https://img.shields.io/badge/language-java-orange.svg)
 [![](https://badge.juejin.im/entry/58fb4cad570c350058d74eab/likes.svg?style=flat)](https://juejin.im/post/58fb4c64ac502e0063a2721e)
-[![](https://img.shields.io/badge/API-15-green.svg?style=flat)](https://android-arsenal.com/api?level=15)
 
 在 Android 的画布 Canvas 里面有个 drawBitmapMesh 方法，通过它可以实现对 Bitmap 的各种扭曲。我们试一下用它把图像扭出水波纹的效果。
 

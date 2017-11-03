@@ -2,7 +2,6 @@
 [![](https://api.bintray.com/packages/southernbox/maven/RippleLayout/images/download.svg)](https://bintray.com/southernbox/maven/RippleLayout/_latestVersion)
 [![](https://img.shields.io/badge/Android%20Arsenal-RippleLayout-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6398)
 [![](https://img.shields.io/badge/API-15+-green.svg?style=flat)](https://android-arsenal.com/api?level=15)
-![](https://img.shields.io/badge/language-java-orange.svg)
 [![](https://badge.juejin.im/entry/58fb4cad570c350058d74eab/likes.svg?style=flat)](https://juejin.im/post/58fb4c64ac502e0063a2721e)
 
 # RippleLayout

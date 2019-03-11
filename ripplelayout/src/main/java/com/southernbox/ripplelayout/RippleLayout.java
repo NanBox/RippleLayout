@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -89,7 +90,7 @@ public class RippleLayout extends FrameLayout {
         CountDownTimer cdt = new CountDownTimer(count * 10, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
-                rippleRadius = (count - millisUntilFinished / 10) * rippleSpeed;
+                rippleRadius = (count - (int) (millisUntilFinished / 10)) * rippleSpeed;
                 warp(originX, originY);
             }
 
@@ -214,16 +215,14 @@ public class RippleLayout extends FrameLayout {
      * @return 对应View的缓存视图
      */
     private Bitmap getCacheBitmapFromView(View view) {
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache(true);
-        final Bitmap drawingCache = view.getDrawingCache();
-        Bitmap bitmap;
-        if (drawingCache != null) {
-            bitmap = Bitmap.createBitmap(drawingCache);
-            view.setDrawingCacheEnabled(false);
-        } else {
-            bitmap = null;
+
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas);
         }
+        view.draw(canvas);
         return bitmap;
     }
 

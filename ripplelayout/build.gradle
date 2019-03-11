@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -26,6 +26,6 @@ publish {
     userOrg = 'southernbox'
     groupId = 'com.southernbox'
     artifactId = 'RippleLayout'
-    publishVersion = '0.1.0'
+    publishVersion = '1.0.0'
     website = 'https://github.com/SouthernBox/RippleLayout'
 }

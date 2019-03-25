@@ -1,4 +1,3 @@
-[![](https://travis-ci.org/SouthernBox/RippleLayout.svg?branch=master)](https://travis-ci.org/SouthernBox/RippleLayout)
 [![](https://api.bintray.com/packages/southernbox/maven/RippleLayout/images/download.svg)](https://bintray.com/southernbox/maven/RippleLayout/_latestVersion)
 [![](https://img.shields.io/badge/Android%20Arsenal-RippleLayout-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6398)
 [![](https://img.shields.io/badge/API-15+-green.svg?style=flat)](https://android-arsenal.com/api?level=15)

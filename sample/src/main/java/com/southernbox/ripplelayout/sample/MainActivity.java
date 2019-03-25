@@ -1,9 +1,7 @@
 package com.southernbox.ripplelayout.sample;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.southernbox.ripplelayout.sample.R;
 
 /**
  * Created by SouthernBox on 2017/4/20 0020.

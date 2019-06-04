@@ -15,17 +15,17 @@ Through drawBitmapMesh method, simulating the real water ripple effect.
 
 ```javascript
 dependencies {
-    compile 'com.southernbox:RippleLayout:0.1.0'
+    implementation 'com.nanbox:RippleLayout:1.0.0'
 }
 ```
 **Add RippleLayout to your layout file:**
 
 ```xml
-<com.southernbox.ripplelayout.RippleLayout
+<com.nanbox.ripplelayout.RippleLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
     <!--layout-->
 
-</com.southernbox.ripplelayout.RippleLayout>
+</com.nanbox.ripplelayout.RippleLayout>
 ```

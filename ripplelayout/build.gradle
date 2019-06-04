@@ -8,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -24,8 +24,9 @@ android {
 
 publish {
     userOrg = 'southernbox'
-    groupId = 'com.southernbox'
+    groupId = 'com.nanbox'
     artifactId = 'RippleLayout'
     publishVersion = '1.0.0'
-    website = 'https://github.com/SouthernBox/RippleLayout'
+    desc = 'Simulating real water ripple effect.'
+    website = 'https://github.com/NanBox/RippleLayout'
 }

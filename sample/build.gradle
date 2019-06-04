@@ -4,10 +4,10 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.southernbox.ripplelayout"
+        applicationId "com.nanbox.ripplelayout"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1
+        versionCode 120190604
         versionName "1.0"
     }
 

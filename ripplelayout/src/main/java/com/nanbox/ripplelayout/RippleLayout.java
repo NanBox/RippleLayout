@@ -1,4 +1,4 @@
-package com.southernbox.ripplelayout;
+package com.nanbox.ripplelayout;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 /**
- * Created by SouthernBox on 2017/4/20 0020.
+ * Created by NanBox on 2017/4/20 0020.
  * 涟漪效果控件
  */
 

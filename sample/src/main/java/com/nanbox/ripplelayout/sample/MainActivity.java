@@ -1,11 +1,11 @@
-package com.southernbox.ripplelayout.sample;
+package com.nanbox.ripplelayout.sample;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 /**
- * Created by SouthernBox on 2017/4/20 0020.
  * 主页面
+ * Created by NanBox on 2017/4/20 0020.
  */
 
 public class MainActivity extends AppCompatActivity {
